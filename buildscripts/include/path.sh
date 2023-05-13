@@ -29,4 +29,7 @@ toolchain=$(echo "$DIR/sdk/android-ndk-${v_ndk}/toolchains/llvm/prebuilt/"*)
 [ -d "$toolchain" ] && \
 	export PATH="$toolchain/bin:$DIR/sdk/android-ndk-${v_ndk}:$DIR/sdk/bin:$PATH"
 export ANDROID_HOME="$DIR/sdk/android-sdk-$os"
+if [ -n "${ANDROID_SDK_ROOT}" ]; then
+	export ANDROID_SDK_ROOT_OLD="$ANDROID_SDK_ROOT"
+fi
 unset ANDROID_SDK_ROOT ANDROID_NDK_ROOT
