@@ -16,6 +16,9 @@ else
 fi
 cores=${cores:-4}
 
+if [ -n "${ANDROID_SDK_ROOT}" ]; then
+	export ANDROID_SDK_ROOT_ORG="$ANDROID_SDK_ROOT"
+fi
 unset ANDROID_SDK_ROOT
 export ANDROID_HOME="$DIR/sdk/android-sdk-$os"
 # for all other NDK/compiler-related variables see buildall.sh
