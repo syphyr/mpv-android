@@ -48,6 +48,12 @@ fi
 
 mkdir -p sdk && cd sdk
 
+if [ -n "${ANDROID_SDK_ROOT_ORG}" ]; then
+	if [ ! -d "android-sdk-${os}" ]; then
+		ln -s "${ANDROID_SDK_ROOT_ORG}" "android-sdk-${os}"
+	fi
+fi
+
 # Android SDK
 if [ ! -d "android-sdk-${os}" ]; then
 	echo "Android SDK not found. Downloading commandline tools."
