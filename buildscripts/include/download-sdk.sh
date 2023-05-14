@@ -71,7 +71,7 @@ if [ -d "android-ndk-${v_ndk}" ]; then
 elif [ -d "android-sdk-$os/ndk/${v_ndk_n}" ]; then
 	echo "Creating NDK symlink to SDK."
 	ln -s "android-sdk-$os/ndk/${v_ndk_n}" "android-ndk-${v_ndk}"
-elif [ -z "${os_ndk}" ]; then
+elif [ -d "android-sdk-${os}" ] && [ ! -d "android-sdk-$os/ndk/${v_ndk_n}" ]; then
 	echo "Downloading NDK with sdkmanager."
 	echo y | sdkmanager "ndk;${v_ndk_n}"
 	ln -s "android-sdk-$os/ndk/${v_ndk_n}" "android-ndk-${v_ndk}"
