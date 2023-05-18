@@ -24,7 +24,7 @@ cpuflags=
 
 args=(
 	--target-os=android --enable-cross-compile
-	--cross-prefix=$ndk_triple- --cc=$CC --pkg-config=pkg-config --nm=llvm-nm
+	--cross-prefix=$ndk_triple- --cc=$CC --pkg-config=pkg-config --nm="llvm-nm -g"
 	--arch=${ndk_triple%%-*} --cpu=$cpu
 	--extra-cflags="-I$prefix_dir/include $cpuflags" --extra-ldflags="-L$prefix_dir/lib"
 
