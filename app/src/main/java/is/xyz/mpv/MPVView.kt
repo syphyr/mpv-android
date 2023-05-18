@@ -13,6 +13,7 @@ import `is`.xyz.mpv.MPVLib.MpvFormat.MPV_FORMAT_FLAG
 import `is`.xyz.mpv.MPVLib.MpvFormat.MPV_FORMAT_INT64
 import `is`.xyz.mpv.MPVLib.MpvFormat.MPV_FORMAT_NONE
 import `is`.xyz.mpv.MPVLib.MpvFormat.MPV_FORMAT_STRING
+import java.io.File
 import kotlin.reflect.KProperty
 
 internal class MPVView(context: Context, attrs: AttributeSet) : BaseMPVView(context, attrs) {
@@ -111,6 +112,11 @@ internal class MPVView(context: Context, attrs: AttributeSet) : BaseMPVView(cont
         val screenshotDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         screenshotDir.mkdirs()
         MPVLib.setOptionString("screenshot-directory", screenshotDir.path)
+        // Set watch later directory locally accessible
+        val watchlaterDir = File(Environment.getExternalStorageDirectory().path +
+                                 "/Android/media/" + context.getPackageName() + "/watch_later")
+        watchlaterDir.mkdirs()
+        MPVLib.setOptionString("watch-later-directory", watchlaterDir.toString())
     }
 
     override fun postInitOptions() {
