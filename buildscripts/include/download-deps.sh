@@ -13,8 +13,10 @@ mkdir -p deps && cd deps
 # mbedtls
 if [ ! -d mbedtls ]; then
 	mkdir mbedtls
-	$WGET https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-$v_mbedtls/mbedtls-$v_mbedtls.tar.bz2 -O - | \
-		tar -xj -C mbedtls --strip-components=1
+	if [ ! -f mbedtls-$v_mbedtls.tar.bz2 ]; then
+		$WGET https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-$v_mbedtls/mbedtls-$v_mbedtls.tar.bz2
+	fi
+	tar -xj -C mbedtls --strip-components=1 -f mbedtls-$v_mbedtls.tar.bz2
 fi
 
 # dav1d
@@ -32,22 +34,28 @@ fi
 # fribidi
 if [ ! -d fribidi ]; then
 	mkdir fribidi
-	$WGET https://github.com/fribidi/fribidi/releases/download/v$v_fribidi/fribidi-$v_fribidi.tar.xz -O - | \
-		tar -xJ -C fribidi --strip-components=1
+	if [ ! -f fribidi-$v_fribidi.tar.xz ]; then
+		$WGET https://github.com/fribidi/fribidi/releases/download/v$v_fribidi/fribidi-$v_fribidi.tar.xz
+	fi
+	tar -xJ -C fribidi --strip-components=1 -f fribidi-$v_fribidi.tar.xz
 fi
 
 # harfbuzz
 if [ ! -d harfbuzz ]; then
 	mkdir harfbuzz
-	$WGET https://github.com/harfbuzz/harfbuzz/releases/download/$v_harfbuzz/harfbuzz-$v_harfbuzz.tar.xz -O - | \
-		tar -xJ -C harfbuzz --strip-components=1
+	if [ ! -f harfbuzz-$v_harfbuzz.tar.xz ]; then
+		$WGET https://github.com/harfbuzz/harfbuzz/releases/download/$v_harfbuzz/harfbuzz-$v_harfbuzz.tar.xz
+	fi
+	tar -xJ -C harfbuzz --strip-components=1 -f harfbuzz-$v_harfbuzz.tar.xz
 fi
 
 # unibreak
 if [ ! -d unibreak ]; then
 	mkdir unibreak
-	$WGET https://github.com/adah1972/libunibreak/releases/download/libunibreak_${v_unibreak/./_}/libunibreak-${v_unibreak}.tar.gz -O - | \
-		tar -xz -C unibreak --strip-components=1
+	if [ ! -f libunibreak-${v_unibreak}.tar.gz ]; then
+		$WGET https://github.com/adah1972/libunibreak/releases/download/libunibreak_${v_unibreak/./_}/libunibreak-${v_unibreak}.tar.gz
+	fi
+	tar -xz -C unibreak --strip-components=1 -f libunibreak-${v_unibreak}.tar.gz
 fi
 
 # libass
@@ -56,8 +64,10 @@ fi
 # lua
 if [ ! -d lua ]; then
 	mkdir lua
-	$WGET https://www.lua.org/ftp/lua-$v_lua.tar.gz -O - | \
-		tar -xz -C lua --strip-components=1
+	if [ ! -f lua-$v_lua.tar.gz ]; then
+		$WGET https://www.lua.org/ftp/lua-$v_lua.tar.gz
+	fi
+	tar -xz -C lua --strip-components=1 -f lua-$v_lua.tar.gz
 fi
 
 # libplacebo
@@ -69,15 +79,19 @@ fi
 # openssl
 if [ ! -d openssl ]; then
 	mkdir openssl
-	$WGET https://github.com/openssl/openssl/releases/download/openssl-$v_openssl/openssl-$v_openssl.tar.gz -O - | \
-		tar -xz -C openssl --strip-components=1
+	if [ ! -f openssl-$v_openssl.tar.gz ]; then
+		$WGET https://github.com/openssl/openssl/releases/download/openssl-$v_openssl/openssl-$v_openssl.tar.gz
+	fi
+	tar -xz -C openssl --strip-components=1 -f openssl-$v_openssl.tar.gz
 fi
 
 # python
 if [ ! -d python ]; then
 	mkdir python
-	$WGET https://www.python.org/ftp/python/$v_python/Python-$v_python.tar.xz -O- | \
-		tar -xJ -C python --strip-components=1
+	if [ ! -f Python-$v_python.tar.xz ]; then
+		$WGET https://www.python.org/ftp/python/$v_python/Python-$v_python.tar.xz
+	fi
+	tar -xJ -C python --strip-components=1 -f Python-$v_python.tar.xz
 
 	cd python
 	for name in inplace static_modules; do
@@ -96,7 +110,8 @@ fi
 cd ..
 
 # youtube-dl
-$WGET https://kitsunemimi.pw/ytdl/dist.zip
+if [ ! -f dist.zip ]; then
+	$WGET https://kitsunemimi.pw/ytdl/dist.zip
+fi
 unzip dist.zip -d ../app/src/main/assets/ytdl
 rm -f ../app/src/main/assets/ytdl/youtube-dl # don't need it
-rm dist.zip
