@@ -12,9 +12,16 @@ if [ "$os" == "linux" ]; then
 		if hash yum &>/dev/null; then
 			sudo yum install autoconf pkgconfig libtool ninja-build \
 				unzip wget meson
+			python3 -m pip install --upgrade meson
 		elif apt-get -v &>/dev/null; then
-			sudo apt-get install autoconf pkg-config libtool ninja-build \
-				unzip wget meson
+			dpkg -l autoconf | grep "no description" &>/dev/null && { sudo apt-get install autoconf; }
+			dpkg -l pkg-config | grep "no description" &>/dev/null && { sudo apt-get install pkg-config; }
+			dpkg -l libtool | grep "no description" &>/dev/null && { sudo apt-get install libtool; }
+			dpkg -l ninja-build | grep "no description" &>/dev/null && { sudo apt-get install ninja-build; }
+			dpkg -l unzip | grep "no description" &>/dev/null && { sudo apt-get install unzip; }
+			dpkg -l wget | grep "no description" &>/dev/null && { sudo apt-get install wget; }
+			dpkg -l meson | grep "no description" &>/dev/null && { sudo apt-get install meson; }
+			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade meson; }
 		else
 			echo "Note: dependencies were not installed, you have to do that manually."
 		fi
@@ -100,9 +107,11 @@ if ! grep -qF "${v_ndk_n}" "android-ndk-${v_ndk}/source.properties"; then
 fi
 
 # gas-preprocessor
-mkdir -p bin
-$WGET "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
-	-O bin/gas-preprocessor.pl
-chmod +x bin/gas-preprocessor.pl
+if [ ! -f bin/gas-preprocessor.pl ]; then
+	mkdir -p bin
+	$WGET "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
+		-O bin/gas-preprocessor.pl
+	chmod +x bin/gas-preprocessor.pl
+fi
 
 cd ..
