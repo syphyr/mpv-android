@@ -34,9 +34,13 @@ cp libs/*/$abi/libshaderc.a "$prefix_dir/lib/libshaderc_combined.a"
 # create a pkgconfig file
 mkdir -p "$prefix_dir"/lib/pkgconfig
 cat >"$prefix_dir"/lib/pkgconfig/shaderc_combined.pc <<"END"
+prefix=/usr/local
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
 Name: shaderc_combined
 Description:
 Version: 2022.3-unknown
-Libs: -L/usr/lib -lshaderc_combined
-Cflags: -I/usr/include
+Libs: -L${libdir} -lshaderc_combined
+Cflags: -I${includedir}
 END
