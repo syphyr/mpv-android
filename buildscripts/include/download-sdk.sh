@@ -60,6 +60,7 @@ mkdir -p sdk && cd sdk
 
 if [ -n "${ANDROID_SDK_ROOT_OLD}" ]; then
 	if [ ! -d "android-sdk-${os}" ]; then
+		echo "Using Android SDK defined by ANDROID_SDK_ROOT"
 		ln -s "${ANDROID_SDK_ROOT_OLD}" "android-sdk-${os}"
 	fi
 fi
@@ -110,6 +111,7 @@ fi
 # gas-preprocessor
 if [ ! -f bin/gas-preprocessor.pl ]; then
 	mkdir -p bin
+	echo "Downloading gas-preprocessor.pl"
 	$WGET "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
 		-O bin/gas-preprocessor.pl
 	chmod +x bin/gas-preprocessor.pl
