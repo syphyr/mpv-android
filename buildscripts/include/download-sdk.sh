@@ -12,7 +12,7 @@ if [ "$os" == "linux" ]; then
 		if hash yum &>/dev/null; then
 			sudo yum install autoconf pkgconfig libtool ninja-build \
 			python3-pip unzip wget
-			python3 -m pip install --upgrade meson
+			python3 -m pip install --upgrade --user meson
 		elif apt-get -v &>/dev/null; then
 			dpkg -l autoconf | grep "no description" &>/dev/null && { sudo apt-get install autoconf; }
 			dpkg -l pkg-config | grep "no description" &>/dev/null && { sudo apt-get install pkg-config; }
@@ -21,7 +21,7 @@ if [ "$os" == "linux" ]; then
 			dpkg -l python3-pip | grep "no description" &>/dev/null && { sudo apt-get install python3-pip; }
 			dpkg -l unzip | grep "no description" &>/dev/null && { sudo apt-get install unzip; }
 			dpkg -l wget | grep "no description" &>/dev/null && { sudo apt-get install wget; }
-			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade meson; }
+			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user meson; }
 		else
 			echo "Note: dependencies were not installed, you have to do that manually."
 		fi
