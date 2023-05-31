@@ -28,7 +28,8 @@ ndk-build -j$cores \
 	libshaderc_combined
 
 cd "$builddir"
-cp -vr include/* "$prefix_dir/include"
+mkdir -p "$prefix_dir/lib"
+cp -va include/* "$prefix_dir/include/"
 cp -v libs/*/$abi/libshaderc.a "$prefix_dir/lib/libshaderc_combined.a"
 
 # create a pkgconfig file
