@@ -30,7 +30,15 @@ if [ ! -d ffmpeg ]; then
 fi
 
 # freetype2
-[ ! -d freetype2 ] && git clone --recurse-submodules https://gitlab.freedesktop.org/freetype/freetype.git freetype2 -b VER-${v_freetype//./-}
+if [ ! -d freetype2 ]; then
+	git clone --recurse-submodules https://gitlab.freedesktop.org/freetype/freetype.git freetype2 -b VER-${v_freetype//./-}
+else
+	cd freetype2
+	git fetch
+	git submodule update --init --recursive --rebase
+	git checkout VER-${v_freetype//./-}
+	cd ..
+fi
 
 # fribidi
 if [ ! -d fribidi ]; then
