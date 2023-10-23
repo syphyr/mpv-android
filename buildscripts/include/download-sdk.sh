@@ -11,7 +11,7 @@ if [ "$os" == "linux" ]; then
 	if [ $IN_CI -eq 0 ]; then
 		if hash yum &>/dev/null; then
 			sudo yum install autoconf pkgconfig libtool ninja-build \
-				unzip wget meson gperf
+				unzip wget meson gperf python3
 			python3 -m pip install --upgrade meson
 		elif apt-get -v &>/dev/null; then
 			dpkg -l autoconf | grep "no description" &>/dev/null && { sudo apt-get install autoconf; }
@@ -22,6 +22,7 @@ if [ "$os" == "linux" ]; then
 			dpkg -l wget | grep "no description" &>/dev/null && { sudo apt-get install wget; }
 			dpkg -l meson | grep "no description" &>/dev/null && { sudo apt-get install meson; }
 			dpkg -l gperf | grep "no description" &>/dev/null && { sudo apt-get install gperf; }
+			dpkg -l python3 | grep "no description" &>/dev/null && { sudo apt-get install python3; }
 			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade meson; }
 		else
 			echo "Note: dependencies were not installed, you have to do that manually."
@@ -46,7 +47,7 @@ elif [ "$os" == "mac" ]; then
 		fi
 		brew install \
 			automake autoconf libtool pkg-config \
-			coreutils gnu-sed wget meson ninja gperf
+			coreutils gnu-sed wget meson ninja gperf python
 	fi
 	if ! javac -version &>/dev/null; then
 		echo "Error: missing Java Development Kit. Install it manually."
