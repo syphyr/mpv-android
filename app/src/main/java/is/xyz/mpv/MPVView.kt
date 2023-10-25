@@ -111,14 +111,14 @@ internal class MPVView(context: Context, attrs: AttributeSet) : BaseMPVView(cont
         //
         val screenshotDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         screenshotDir.mkdirs()
-        MPVLib.setOptionString("screenshot-directory", screenshotDir.path)
+        MPVLib.setOptionString("screenshot-dir", screenshotDir.path)
         // workaround for <https://github.com/mpv-player/mpv/issues/14651>
         MPVLib.setOptionString("vd-lavc-film-grain", "cpu")
         // Set watch later directory locally accessible
         val watchlaterDir = File(Environment.getExternalStorageDirectory().path +
                                  "/Android/media/" + context.getPackageName() + "/watch_later")
         watchlaterDir.mkdirs()
-        MPVLib.setOptionString("watch-later-directory", watchlaterDir.toString())
+        MPVLib.setOptionString("watch-later-dir", watchlaterDir.toString())
     }
 
     override fun postInitOptions() {
