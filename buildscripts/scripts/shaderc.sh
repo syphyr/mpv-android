@@ -41,7 +41,7 @@ libdir=${prefix}/lib
 
 Name: shaderc_combined
 Description:
-Version: 2023.5-dev
+Version: 2024.1-dev
 Libs: -L${libdir} -lshaderc_combined
 Cflags: -I${includedir}
 END
