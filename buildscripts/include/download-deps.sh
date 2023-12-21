@@ -8,7 +8,14 @@
 mkdir -p deps && cd deps
 
 # elf-cleaner
-[ ! -d elf-cleaner ] && git clone https://github.com/termux/termux-elf-cleaner elf-cleaner
+if [ ! -d elf-cleaner ]; then
+	git clone https://github.com/termux/termux-elf-cleaner elf-cleaner -b $v_elfcleaner
+else
+	cd elf-cleaner
+	git fetch
+	git checkout $v_elfcleaner
+	cd ..
+fi
 
 # mbedtls
 if [ ! -d mbedtls ]; then
