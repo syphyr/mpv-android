@@ -9,6 +9,7 @@ v_ndk_n=26.3.11579264
 v_sdk_platform=34
 v_sdk_build_tools=34.0.0
 
+v_elfcleaner=v2.1.1
 v_lua=5.2.4
 v_unibreak=6.1
 v_harfbuzz=8.5.0
