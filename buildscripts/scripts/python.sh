@@ -13,8 +13,8 @@ else
 fi
 
 ### TODO figure this out
-if [[ -z "$DOIT" && "$ndk_triple" != "arm"* ]]; then
-	echo "Skipping build for $ndk_triple, only supposed to run on ARM (for now)"
+if [[ -z "$DOIT" && "$ndk_triple" != "arm"* ]] && [[ -z "$DOIT" && "$ndk_triple" != "aarch64"* ]]; then
+	echo "Skipping build for $ndk_triple, only supposed to run on ARM/ARM64"
 	exit 0
 fi
 ###
