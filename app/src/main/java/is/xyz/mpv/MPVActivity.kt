@@ -1211,13 +1211,21 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver, TouchGesturesObse
             Pair("HW (mediacodec-copy)", "mediacodec-copy"),
             Pair("SW", "no")
         )
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O || player.forceHardwarePlus())
             items.add(0, Pair("HW+ (mediacodec)", "mediacodec"))
         val hwdecActive = player.hwdecActive
         val selectedIndex = items.indexOfFirst { it.second == hwdecActive }
         with (AlertDialog.Builder(this)) {
             setSingleChoiceItems(items.map { it.first }.toTypedArray(), selectedIndex ) { dialog, idx ->
                 MPVLib.setPropertyString("hwdec", items[idx].second)
+                if (player.forceHardwarePlus()) {
+                    if (items[idx].second == "mediacodec")
+                        MPVLib.setPropertyString("vo", "mediacodec_embed")
+                    else if (player.enableGpuNext())
+                        MPVLib.setPropertyString("vo", "gpu-next")
+                    else
+                        MPVLib.setPropertyString("vo", "gpu")
+                }
                 dialog.dismiss()
             }
             setOnDismissListener { restore() }
