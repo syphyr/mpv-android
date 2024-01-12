@@ -13,20 +13,24 @@ import java.io.File
 import kotlin.reflect.KProperty
 
 internal class MPVView(context: Context, attrs: AttributeSet) : BaseMPVView(context, attrs) {
+    private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     override fun initOptions() {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
         // apply phone-optimized defaults
         MPVLib.setOptionString("profile", "fast")
 
         // vo
-        setVo(if (sharedPreferences.getBoolean("gpu_next", false))
+        setVo(if (forceHardwarePlus())
+            "mediacodec_embed"
+        else if (enableGpuNext())
             "gpu-next"
         else
             "gpu")
 
         // hwdec
-        val hwdec = if (sharedPreferences.getBoolean("hardware_decoding", true))
+        val hwdec = if (forceHardwarePlus())
+            "mediacodec"
+        else if (sharedPreferences.getBoolean("hardware_decoding", true))
             "auto"
         else
             "no"
@@ -353,7 +357,17 @@ internal class MPVView(context: Context, attrs: AttributeSet) : BaseMPVView(cont
     fun cyclePause() = MPVLib.command(arrayOf("cycle", "pause"))
     fun cycleAudio() = MPVLib.command(arrayOf("cycle", "audio"))
     fun cycleSub() = MPVLib.command(arrayOf("cycle", "sub"))
-    fun cycleHwdec() = MPVLib.command(arrayOf("cycle-values", "hwdec", "auto", "no"))
+    fun cycleHwdec() {
+        if (!forceHardwarePlus())
+            MPVLib.command(arrayOf("cycle-values", "hwdec", "auto", "no"))
+        else {
+            MPVLib.command(arrayOf("cycle-values", "hwdec", "mediacodec", "mediacodec-copy"))
+            if (enableGpuNext())
+                MPVLib.command(arrayOf("cycle-values", "vo", "mediacodec_embed", "gpu-next"))
+            else
+                MPVLib.command(arrayOf("cycle-values", "vo", "mediacodec_embed", "gpu"))
+        }
+    }
 
     fun cycleSpeed() {
         val speeds = arrayOf(0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0)
@@ -384,6 +398,14 @@ internal class MPVView(context: Context, attrs: AttributeSet) : BaseMPVView(cont
 
     fun getShuffle(): Boolean {
         return MPVLib.getPropertyBoolean("shuffle")
+    }
+
+    fun forceHardwarePlus(): Boolean {
+        return sharedPreferences.getBoolean("hardware_plus_decoding", false)
+    }
+
+    fun enableGpuNext(): Boolean {
+        return sharedPreferences.getBoolean("gpu_next", false)
     }
 
     fun changeShuffle(cycle: Boolean, value: Boolean = true) {
