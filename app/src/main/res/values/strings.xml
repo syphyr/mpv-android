@@ -113,6 +113,9 @@
     <string name="pref_hardware_decoding_title">Hardware decoding</string>
     <string name="pref_hardware_decoding_summary">Attempt hardware decoding before falling back to software. This is generally more efficient.</string>
 
+    <string name="pref_hardware_plus_decoding_title">Force hardware plus decoding</string>
+    <string name="pref_hardware_plus_decoding_summary">This option is not compatible with subtitle rendering, OSD/OSC, and video filters.</string>
+
     <string name="pref_background_play_title">Background playback</string>
     <string name="pref_background_play_summary">Decide when playback should be automatically resumed background.</string>
     <string name="pref_background_play_default" translatable="false">never</string>
