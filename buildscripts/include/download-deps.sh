@@ -38,7 +38,7 @@ fi
 
 # freetype2
 if [ ! -d freetype2 ]; then
-	git clone --recurse-submodules git://git.sv.nongnu.org/freetype/freetype2.git -b VER-$v_freetype
+	git clone --recurse-submodules https://gitlab.freedesktop.org/freetype/freetype.git freetype2 -b VER-$v_freetype
 else
 	cd freetype2
 	git fetch
