@@ -66,7 +66,7 @@ fi
 # Android SDK
 if [ ! -d "android-sdk-${os}" ]; then
 	echo "Android SDK (${v_sdk}) not found. Downloading commandline tools."
-	$WGET "https://dl.google.com/android/repository/commandlinetools-${os}-${v_sdk}.zip"
+	$WGET -q --show-progress "https://dl.google.com/android/repository/commandlinetools-${os}-${v_sdk}.zip"
 	mkdir "android-sdk-${os}"
 	unzip -q -d "android-sdk-${os}" "commandlinetools-${os}-${v_sdk}.zip"
 	rm "commandlinetools-${os}-${v_sdk}.zip"
@@ -92,12 +92,12 @@ elif [ -d "android-sdk-${os}" ] && [ ! -d "android-sdk-$os/ndk/${v_ndk_n}" ]; th
 	ln -s "android-sdk-$os/ndk/${v_ndk_n}" "android-ndk-${v_ndk}"
 elif [ "${os_ndk}" == "linux" ]; then
 	echo "Downloading NDK (${v_ndk}) for linux."
-	$WGET "http://dl.google.com/android/repository/android-ndk-${v_ndk}-${os_ndk}.zip"
+	$WGET -q --show-progress "http://dl.google.com/android/repository/android-ndk-${v_ndk}-${os_ndk}.zip"
 	unzip -q "android-ndk-${v_ndk}-${os_ndk}.zip"
 	rm "android-ndk-${v_ndk}-${os_ndk}.zip"
 elif [ "${os_ndk}" == "darwin" ]; then
 	echo "Downloading NDK (${v_ndk}) for darwin."
-	$WGET "http://dl.google.com/android/repository/android-ndk-${v_ndk}-${os_ndk}.dmg"
+	$WGET -q --show-progress "http://dl.google.com/android/repository/android-ndk-${v_ndk}-${os_ndk}.dmg"
 	echo "NDK for darwin requires manual installation."
 	exit 255
 fi
