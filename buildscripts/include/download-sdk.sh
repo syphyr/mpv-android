@@ -65,7 +65,7 @@ fi
 
 # Android SDK
 if [ ! -d "android-sdk-${os}" ]; then
-	echo "Android SDK not found. Downloading commandline tools."
+	echo "Android SDK (${v_sdk}) not found. Downloading commandline tools."
 	$WGET "https://dl.google.com/android/repository/commandlinetools-${os}-${v_sdk}.zip"
 	mkdir "android-sdk-${os}"
 	unzip -q -d "android-sdk-${os}" "commandlinetools-${os}-${v_sdk}.zip"
@@ -82,21 +82,21 @@ echo y | sdkmanager \
 
 # Android NDK (either standalone or installed by SDK)
 if [ -d "android-ndk-${v_ndk}" ]; then
-	echo "Android NDK directory found."
+	echo "Android NDK (${v_ndk}) directory found."
 elif [ -d "android-sdk-$os/ndk/${v_ndk_n}" ]; then
-	echo "Creating NDK symlink to SDK."
+	echo "Creating NDK (${v_ndk_n}) symlink to SDK."
 	ln -s "android-sdk-$os/ndk/${v_ndk_n}" "android-ndk-${v_ndk}"
 elif [ -d "android-sdk-${os}" ] && [ ! -d "android-sdk-$os/ndk/${v_ndk_n}" ]; then
-	echo "Downloading NDK with sdkmanager."
+	echo "Downloading NDK (${v_ndk_n}) with sdkmanager."
 	echo y | sdkmanager "ndk;${v_ndk_n}"
 	ln -s "android-sdk-$os/ndk/${v_ndk_n}" "android-ndk-${v_ndk}"
 elif [ "${os_ndk}" == "linux" ]; then
-	echo "Downloading NDK for linux."
+	echo "Downloading NDK (${v_ndk}) for linux."
 	$WGET "http://dl.google.com/android/repository/android-ndk-${v_ndk}-${os_ndk}.zip"
 	unzip -q "android-ndk-${v_ndk}-${os_ndk}.zip"
 	rm "android-ndk-${v_ndk}-${os_ndk}.zip"
 elif [ "${os_ndk}" == "darwin" ]; then
-	echo "Downloading NDK for darwin."
+	echo "Downloading NDK (${v_ndk}) for darwin."
 	$WGET "http://dl.google.com/android/repository/android-ndk-${v_ndk}-${os_ndk}.dmg"
 	echo "NDK for darwin requires manual installation."
 	exit 255
