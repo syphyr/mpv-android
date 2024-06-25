@@ -10,7 +10,7 @@ msg() {
 
 fetch_prefix() {
 	if [[ "$CACHE_MODE" == github ]]; then
-		$WGET "https://github.com/mpv-android/prebuilt-prefixes/releases/download/prefixes/$travis_tarball" -O prefix.tgz \
+		$WGET -q --show-progress "https://github.com/mpv-android/prebuilt-prefixes/releases/download/prefixes/$travis_tarball" -O prefix.tgz \
 		&& tar -xzf prefix.tgz -C prefix && rm prefix.tgz && return 0
 	elif [[ "$CACHE_MODE" == folder ]]; then
 		local text=
@@ -67,7 +67,7 @@ if [ "$1" == "install" ]; then
 
 	msg "Fetching mpv"
 	mkdir -p deps/mpv
-	$WGET https://github.com/mpv-player/mpv/archive/master.tar.gz -O master.tgz
+	$WGET -q --show-progress https://github.com/mpv-player/mpv/archive/master.tar.gz -O master.tgz
 	tar -xzf master.tgz -C deps/mpv --strip-components=1
 	rm master.tgz
 
