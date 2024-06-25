@@ -112,7 +112,7 @@ fi
 if [ ! -f bin/gas-preprocessor.pl ]; then
 	mkdir -p bin
 	echo "Downloading gas-preprocessor.pl"
-	$WGET "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
+	$WGET -q --show-progress "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
 		-O bin/gas-preprocessor.pl
 	chmod +x bin/gas-preprocessor.pl
 fi
