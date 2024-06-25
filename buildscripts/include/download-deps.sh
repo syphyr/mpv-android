@@ -21,7 +21,7 @@ fi
 if [ ! -d mbedtls ]; then
 	mkdir mbedtls
 	if [ ! -f mbedtls-$v_mbedtls.tar.bz2 ]; then
-		$WGET https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-$v_mbedtls/mbedtls-$v_mbedtls.tar.bz2
+		$WGET -q --show-progress https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-$v_mbedtls/mbedtls-$v_mbedtls.tar.bz2
 	fi
 	echo "Extracting mbedtls-$v_mbedtls.tar.bz2"        
 	tar -xj -C mbedtls --strip-components=1 -f mbedtls-$v_mbedtls.tar.bz2
@@ -51,7 +51,7 @@ fi
 if [ ! -d fribidi ]; then
 	mkdir fribidi
 	if [ ! -f fribidi-$v_fribidi.tar.xz ]; then
-		$WGET https://github.com/fribidi/fribidi/releases/download/v$v_fribidi/fribidi-$v_fribidi.tar.xz
+		$WGET -q --show-progress https://github.com/fribidi/fribidi/releases/download/v$v_fribidi/fribidi-$v_fribidi.tar.xz
 	fi
 	echo "Extracting fribidi-$v_fribidi.tar.xz"
 	tar -xJ -C fribidi --strip-components=1 -f fribidi-$v_fribidi.tar.xz
@@ -61,7 +61,7 @@ fi
 if [ ! -d harfbuzz ]; then
 	mkdir harfbuzz
 	if [ ! -f harfbuzz-$v_harfbuzz.tar.xz ]; then
-		$WGET https://github.com/harfbuzz/harfbuzz/releases/download/$v_harfbuzz/harfbuzz-$v_harfbuzz.tar.xz
+		$WGET -q --show-progress https://github.com/harfbuzz/harfbuzz/releases/download/$v_harfbuzz/harfbuzz-$v_harfbuzz.tar.xz
 	fi
 	echo "Extracting harfbuzz-$v_harfbuzz.tar.xz"
 	tar -xJ -C harfbuzz --strip-components=1 -f harfbuzz-$v_harfbuzz.tar.xz
@@ -71,7 +71,7 @@ fi
 if [ ! -d unibreak ]; then
 	mkdir unibreak
 	if [ ! -f libunibreak-${v_unibreak}.tar.gz ]; then
-		$WGET https://github.com/adah1972/libunibreak/releases/download/libunibreak_${v_unibreak/./_}/libunibreak-${v_unibreak}.tar.gz
+		$WGET -q --show-progress https://github.com/adah1972/libunibreak/releases/download/libunibreak_${v_unibreak/./_}/libunibreak-${v_unibreak}.tar.gz
 	fi
 	echo "Extracting libunibreak-${v_unibreak}.tar.gz"
 	tar -xz -C unibreak --strip-components=1 -f libunibreak-${v_unibreak}.tar.gz
@@ -84,7 +84,7 @@ fi
 if [ ! -d lua ]; then
 	mkdir lua
 	if [ ! -f lua-$v_lua.tar.gz ]; then
-		$WGET https://www.lua.org/ftp/lua-$v_lua.tar.gz
+		$WGET -q --show-progress https://www.lua.org/ftp/lua-$v_lua.tar.gz
 	fi
 	echo "Extracting lua-$v_lua.tar.gz"
 	tar -xz -C lua --strip-components=1 -f lua-$v_lua.tar.gz
@@ -115,7 +115,7 @@ fi
 if [ ! -d openssl ]; then
 	mkdir openssl
 	if [ ! -f openssl-$v_openssl.tar.gz ]; then
-		$WGET https://github.com/openssl/openssl/releases/download/openssl-$v_openssl/openssl-$v_openssl.tar.gz
+		$WGET -q --show-progress https://github.com/openssl/openssl/releases/download/openssl-$v_openssl/openssl-$v_openssl.tar.gz
 	fi
 	echo "Extracting openssl-$v_openssl.tar.gz"
 	tar -xz -C openssl --strip-components=1 -f openssl-$v_openssl.tar.gz
@@ -125,7 +125,7 @@ fi
 if [ ! -d python ]; then
 	mkdir python
 	if [ ! -f Python-$v_python.tar.xz ]; then
-		$WGET https://www.python.org/ftp/python/$v_python/Python-$v_python.tar.xz
+		$WGET -q --show-progress https://www.python.org/ftp/python/$v_python/Python-$v_python.tar.xz
 	fi
 	echo "Extracting Python-$v_python.tar.xz"
 	tar -xJ -C python --strip-components=1 -f Python-$v_python.tar.xz
@@ -148,7 +148,7 @@ cd ..
 
 # youtube-dl
 if [ ! -f dist.zip ]; then
-	$WGET https://kitsunemimi.pw/ytdl/dist.zip
+	$WGET -q --show-progress https://kitsunemimi.pw/ytdl/dist.zip
 fi
 echo "Extracting youtube-dl dist.zip"
 unzip dist.zip -d ../app/src/main/assets/ytdl
