@@ -109,12 +109,14 @@ if ! grep -qF "${v_ndk_n}" "android-ndk-${v_ndk}/source.properties"; then
 fi
 
 # gas-preprocessor
-if [ ! -f bin/gas-preprocessor.pl ]; then
+if [ -f bin/gas-preprocessor.pl ]; then
+	echo "Updating existing copy of gas-preprocessor.pl"
+else
+	echo "Downloading new copy gas-preprocessor.pl"
 	mkdir -p bin
-	echo "Downloading gas-preprocessor.pl"
-	$WGET -q --show-progress "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
-		-O bin/gas-preprocessor.pl
-	chmod +x bin/gas-preprocessor.pl
 fi
+$WGET -q --show-progress "https://github.com/FFmpeg/gas-preprocessor/raw/master/gas-preprocessor.pl" \
+	-O bin/gas-preprocessor.pl
+chmod +x bin/gas-preprocessor.pl
 
 cd ..
