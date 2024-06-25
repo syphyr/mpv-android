@@ -2,37 +2,59 @@ git clean -fdx -e buildscripts
 cd buildscripts
 git clean -fdx -e deps -e sdk -e dist.zip
 
-cd deps/dav1d
-git clean -fdx
-git reset --hard
+cd deps
 
-cd ../elf-cleaner
-git clean -fdx
-git reset --hard
+if [ -d dav1d ]; then
+	cd dav1d
+	git clean -fdx
+	git reset --hard
+	cd ..
+fi
 
-cd ../ffmpeg
-git clean -fdx
-git reset --hard
+if [ -d elf-cleaner ]; then
+	cd elf-cleaner
+	git clean -fdx
+	git reset --hard
+	cd ..
+fi
 
-cd ../freetype2
-git clean -fdx
-git submodule foreach --recursive git clean -xfd
-git reset --hard
-git submodule foreach --recursive git reset --hard
+if [ -d ffmpeg ]; then
+	cd ffmpeg
+	git clean -fdx
+	git reset --hard
+	cd ..
+fi
 
-cd ../libass
-git clean -fdx
-git reset --hard
+if [ -d freetype2 ]; then
+	cd freetype2
+	git clean -fdx
+	git submodule foreach --recursive git clean -xfd
+	git reset --hard
+	git submodule foreach --recursive git reset --hard
+	cd ..
+fi
 
-cd ../libplacebo
-git clean -fdx
-git submodule foreach --recursive git clean -xfd
-git reset --hard
-git submodule foreach --recursive git reset --hard
+if [ -d libass ]; then
+	cd libass
+	git clean -fdx
+	git reset --hard
+	cd ..
+fi
 
-cd ../mpv
-git clean -fdx
-git reset --hard
+if [ -d libplacebo ]; then
+	cd libplacebo
+	git clean -fdx
+	git submodule foreach --recursive git clean -xfd
+	git reset --hard
+	git submodule foreach --recursive git reset --hard
+	cd ..
+fi
 
-cd ..
+if [ -d mpv ]; then
+	cd mpv
+	git clean -fdx
+	git reset --hard
+	cd ..
+fi
+
 git clean -fdx -e dav1d -e elf-cleaner -e ffmpeg -e freetype2 -e libass -e mpv -e "*.tar.gz" -e "*.tar.xz" -e libplacebo -e google-shaderc
