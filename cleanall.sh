@@ -2,6 +2,15 @@ git clean -fdx
 
 cd buildscripts/deps
 
+if [ -d mbedtls ]; then
+	cd mbedtls
+	git clean -fdx
+	git submodule foreach --recursive git clean -xfd
+	git reset --hard
+	git submodule foreach --recursive git reset --hard
+	cd ..
+fi
+
 if [ -d dav1d ]; then
 	cd dav1d
 	git clean -fdx
