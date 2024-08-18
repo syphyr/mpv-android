@@ -4,6 +4,15 @@ git clean -fdx -e deps -e sdk -e dist.zip
 
 cd deps
 
+if [ -d mbedtls ]; then
+	cd mbedtls
+	git clean -fdx
+	git submodule foreach --recursive git clean -xfd
+	git reset --hard
+	git submodule foreach --recursive git reset --hard
+	cd ..
+fi
+
 if [ -d dav1d ]; then
 	cd dav1d
 	git clean -fdx
@@ -57,4 +66,4 @@ if [ -d mpv ]; then
 	cd ..
 fi
 
-git clean -fdx -e dav1d -e elf-cleaner -e ffmpeg -e freetype2 -e libass -e mpv -e "*.tar.gz" -e "*.tar.xz" -e libplacebo -e google-shaderc
+git clean -fdx -e mbedtls -e dav1d -e elf-cleaner -e ffmpeg -e freetype2 -e libass -e mpv -e "*.tar.gz" -e "*.tar.xz" -e libplacebo -e google-shaderc
