@@ -19,12 +19,13 @@ fi
 
 # mbedtls
 if [ ! -d mbedtls ]; then
-	mkdir mbedtls
-	if [ ! -f mbedtls-$v_mbedtls.tar.bz2 ]; then
-		$WGET -q --show-progress https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-$v_mbedtls/mbedtls-$v_mbedtls.tar.bz2
-	fi
-	echo "Extracting mbedtls-$v_mbedtls.tar.bz2"        
-	tar -xj -C mbedtls --strip-components=1 -f mbedtls-$v_mbedtls.tar.bz2
+	git clone --recurse-submodules https://github.com/Mbed-TLS/mbedtls -b v$v_mbedtls
+else
+	cd mbedtls
+	git fetch
+	git checkout v$v_mbedtls
+	git submodule update --init --recursive --rebase
+	cd ..
 fi
 
 # dav1d
