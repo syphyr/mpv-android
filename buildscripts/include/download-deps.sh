@@ -42,8 +42,8 @@ if [ ! -d freetype2 ]; then
 else
 	cd freetype2
 	git fetch
-	git submodule update --init --recursive --rebase
 	git checkout VER-${v_freetype//./-}
+	git submodule update --init --recursive --rebase
 	cd ..
 fi
 
