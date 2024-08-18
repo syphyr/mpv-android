@@ -2,10 +2,12 @@
 
 . ../../include/path.sh
 
+build=_build$ndk_suffix
+
 if [ "$1" == "build" ]; then
 	true
 elif [ "$1" == "clean" ]; then
-	make clean
+	rm -rf $build
 	exit 0
 else
 	exit 255
@@ -21,5 +23,8 @@ fi
 # since 3.6.6 mbedTLS defaults to /dev/random, which is known to block unnecessarily
 ./scripts/config.py set MBEDTLS_PLATFORM_DEV_RANDOM '"/dev/urandom"'
 
-make -j$cores no_test
-make DESTDIR="$prefix_dir" install
+cmake -B $build -G "Ninja" \
+	-DENABLE_TESTING=OFF -DENABLE_PROGRAMS=OFF
+
+ninja -C $build -j$cores
+DESTDIR="$prefix_dir" ninja -C $build install
