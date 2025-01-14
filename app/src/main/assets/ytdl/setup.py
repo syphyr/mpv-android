@@ -2,7 +2,7 @@ import sys, os, urllib.request
 
 scriptdest = "../youtube-dl"
 name = "yt-dlp"
-url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/yt-dlp"
+url = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"
 
 # Clean up old files first
 for path in (scriptdest, "youtube-dl", name):
