@@ -12,8 +12,10 @@ if [ ! -d mbedtls ]; then
 	git clone --recurse-submodules https://github.com/Mbed-TLS/mbedtls -b v$v_mbedtls
 else
 	cd mbedtls
+	echo "Updating mbedtls"
 	git fetch
-	git checkout v$v_mbedtls
+	git checkout -f v$v_mbedtls
+	git describe --tags --always
 	git submodule update --init --recursive --rebase
 	cd ..
 fi
@@ -24,7 +26,7 @@ fi
 # ffmpeg
 if [ ! -d ffmpeg ]; then
 	git clone https://github.com/FFmpeg/FFmpeg ffmpeg
-	[ $IN_CI -eq 1 ] && git -C ffmpeg checkout $v_ci_ffmpeg
+	[ $IN_CI -eq 1 ] && git -C ffmpeg checkout -f $v_ci_ffmpeg
 fi
 
 # freetype2
@@ -33,7 +35,9 @@ if [ ! -d freetype2 ]; then
 else
 	cd freetype2
 	git fetch
-	git checkout VER-${v_freetype//./-}
+	echo "Updating freetype2"
+	git checkout -f VER-${v_freetype//./-}
+	git describe --tags --always
 	git submodule update --init --recursive --rebase
 	cd ..
 fi
