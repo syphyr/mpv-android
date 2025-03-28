@@ -12,8 +12,10 @@ if [ ! -d mbedtls ]; then
 	git clone --recurse-submodules https://github.com/Mbed-TLS/mbedtls -b v$v_mbedtls
 else
 	cd mbedtls
+	echo "Updating mbedtls"
 	git fetch
-	git checkout v$v_mbedtls
+	git checkout -f v$v_mbedtls
+	git describe --tags --always
 	git submodule update --init --recursive --rebase
 	cd ..
 fi
@@ -34,7 +36,9 @@ if [ ! -d freetype2 ]; then
 else
 	cd freetype2
 	git fetch
-	git checkout VER-${v_freetype//./-}
+	echo "Updating freetype2"
+	git checkout -f VER-${v_freetype//./-}
+	git describe --tags --always
 	git submodule update --init --recursive --rebase
 	cd ..
 fi
