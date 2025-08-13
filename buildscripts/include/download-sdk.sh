@@ -10,18 +10,21 @@
 if [ "$os" == "linux" ]; then
 	if [ $IN_CI -eq 0 ]; then
 		if hash yum &>/dev/null; then
-			sudo yum install autoconf pkgconfig libtool ninja-build \
+			sudo yum install autoconf pkgconfig libtool \
 				unzip wget python3
 			python3 -m pip install --upgrade --user meson
+			python3 -m pip install --upgrade --user ninja
+			python3 -m pip install --upgrade --user cmake
 		elif apt-get -v &>/dev/null; then
 			dpkg -l autoconf | grep "^ii" &>/dev/null || { sudo apt-get install autoconf; }
 			dpkg -l pkg-config | grep "^ii" &>/dev/null || { sudo apt-get install pkg-config; }
 			dpkg -l libtool | grep "^ii" &>/dev/null || { sudo apt-get install libtool; }
-			dpkg -l ninja-build | grep "^ii" &>/dev/null || { sudo apt-get install ninja-build; }
 			dpkg -l unzip | grep "^ii" &>/dev/null || { sudo apt-get install unzip; }
 			dpkg -l wget | grep "^ii" &>/dev/null || { sudo apt-get install wget; }
 			dpkg -l python3 | grep "^ii" &>/dev/null || { sudo apt-get install python3; }
 			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user meson; }
+			python3 -m pip show ninja | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user ninja; }
+			python3 -m pip show cmake | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user cmake; }
 		else
 			echo "Note: dependencies were not installed, you have to do that manually."
 		fi
