@@ -14,15 +14,15 @@ if [ "$os" == "linux" ]; then
 				unzip wget meson gperf python3
 			python3 -m pip install --upgrade --user meson
 		elif apt-get -v &>/dev/null; then
-			dpkg -l autoconf | grep "no description" &>/dev/null && { sudo apt-get install autoconf; }
-			dpkg -l pkg-config | grep "no description" &>/dev/null && { sudo apt-get install pkg-config; }
-			dpkg -l libtool | grep "no description" &>/dev/null && { sudo apt-get install libtool; }
-			dpkg -l ninja-build | grep "no description" &>/dev/null && { sudo apt-get install ninja-build; }
-			dpkg -l unzip | grep "no description" &>/dev/null && { sudo apt-get install unzip; }
-			dpkg -l wget | grep "no description" &>/dev/null && { sudo apt-get install wget; }
-			dpkg -l meson | grep "no description" &>/dev/null && { sudo apt-get install meson; }
-			dpkg -l gperf | grep "no description" &>/dev/null && { sudo apt-get install gperf; }
-			dpkg -l python3 | grep "no description" &>/dev/null && { sudo apt-get install python3; }
+			dpkg -l autoconf | grep "^ii" &>/dev/null || { sudo apt-get install autoconf; }
+			dpkg -l pkg-config | grep "^ii" &>/dev/null || { sudo apt-get install pkg-config; }
+			dpkg -l libtool | grep "^ii" &>/dev/null || { sudo apt-get install libtool; }
+			dpkg -l ninja-build | grep "^ii" &>/dev/null || { sudo apt-get install ninja-build; }
+			dpkg -l unzip | grep "^ii" &>/dev/null || { sudo apt-get install unzip; }
+			dpkg -l wget | grep "^ii" &>/dev/null || { sudo apt-get install wget; }
+			dpkg -l meson | grep "^ii" &>/dev/null || { sudo apt-get install meson; }
+			dpkg -l gperf | grep "^ii" &>/dev/null || { sudo apt-get install gperf; }
+			dpkg -l python3 | grep "^ii" &>/dev/null || { sudo apt-get install python3; }
 			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user meson; }
 		else
 			echo "Note: dependencies were not installed, you have to do that manually."
