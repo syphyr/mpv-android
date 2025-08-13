@@ -13,6 +13,8 @@ if [ "$os" == "linux" ]; then
 			sudo yum install autoconf pkgconfig libtool ninja-build \
 				unzip wget meson python3
 			python3 -m pip install --upgrade --user meson
+			python3 -m pip install --upgrade --user ninja
+			python3 -m pip install --upgrade --user cmake
 		elif apt-get -v &>/dev/null; then
 			dpkg -l autoconf | grep "^ii" &>/dev/null || { sudo apt-get install autoconf; }
 			dpkg -l pkg-config | grep "^ii" &>/dev/null || { sudo apt-get install pkg-config; }
@@ -23,6 +25,8 @@ if [ "$os" == "linux" ]; then
 			dpkg -l meson | grep "^ii" &>/dev/null || { sudo apt-get install meson; }
 			dpkg -l python3 | grep "^ii" &>/dev/null || { sudo apt-get install python3; }
 			python3 -m pip show meson | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user meson; }
+			python3 -m pip show ninja | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user ninja; }
+			python3 -m pip show cmake | grep WARNING &>/dev/null && { python3 -m pip install --upgrade --user cmake; }
 		else
 			echo "Note: dependencies were not installed, you have to do that manually."
 		fi
