@@ -15,7 +15,7 @@ v_unibreak=6.1
 v_harfbuzz=12.1.0
 v_fribidi=1.0.16
 v_freetype=2.14.1
-v_mbedtls=3.6.4
+v_mbedtls=3.6.5
 v_openssl=3.0.18
 v_python=3.10.19
 
