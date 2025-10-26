@@ -1,0 +1,11 @@
+--- configure.orig     2025-10-09 13:07:00.000000000 +0200
++++ configure  2025-10-26 22:00:36.956595492 +0100
+@@ -29493,7 +29493,7 @@
+ then :
+   if test "$ac_cv_func_getgrgid" = yes -o "$ac_cv_func_getgrgid_r" = yes
+ then :
+-  py_cv_module_grp=yes
++  py_cv_module_grp=disabled
+ else $as_nop
+   py_cv_module_grp=missing
+ fi
