@@ -1,10 +1,10 @@
---- setup.py	2019-03-25 21:21:05.000000000 +0100
-+++ setup.py	2019-06-21 16:52:23.151217709 +0200
-@@ -579,6 +579,7 @@
-             print()
+--- Modules/Setup.stdlib.in.orig	2025-10-09 13:07:00.000000000 +0200
++++ Modules/Setup.stdlib.in	2025-10-29 03:10:19.133393597 +0100
+@@ -24,6 +24,7 @@
+ # Build modules statically or as shared extensions
+ # *shared* / *static*
+ *@MODULE_BUILDTYPE@*
++*static*
  
-     def build_extension(self, ext):
-+        return print('WARNING: not building extension "%s"' % ext.name)
  
-         if ext.name == '_ctypes':
-             if not self.configure_ctypes(ext):
+ ############################################################################
