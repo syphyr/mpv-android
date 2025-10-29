@@ -33,6 +33,7 @@ recompile_py () {
 prune_stdlib () {
 	local delete=(
 		pydoc_data turtledemo # docs
+		test unittest/test # unittests
 		tkinter sqlite3 venv ensurepip # doesn't work anyway
 		lib2to3 idlelib distutils multiprocessing # not used by ytdl
 	)
@@ -57,8 +58,7 @@ cd _build$ndk_suffix
 # build
 ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no \
 ../configure --host=$ndk_triple --build=${ndk_triple%%-*} \
-	--enable-ipv6 --disable-shared --without-ensurepip \
-	--with-build-python --disable-test-modules
+	--enable-ipv6 --disable-shared --without-ensurepip
 make -j$cores
 
 # install to temporary location
