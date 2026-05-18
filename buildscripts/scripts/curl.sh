@@ -20,7 +20,8 @@ cd $build
 	--host=$ndk_triple --with-mbedtls="$prefix_dir" --without-libpsl \
 	--disable-shared --enable-static --disable-debug \
 	--disable-{manual,docs,ares,unix-sockets,tls-srp,doh} \
-	--disable-{rtsp,dict,telnet,tftp,pop3,imap,smb,smtp,gopher,mqtt,ntlm}
+	--disable-{rtsp,dict,telnet,tftp,pop3,imap,smb,smtp,gopher,mqtt,ntlm} \
+	--disable-{ipfs,ldap}
 
 make -j$cores
 make DESTDIR="$prefix_dir" install
