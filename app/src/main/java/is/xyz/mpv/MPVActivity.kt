@@ -305,7 +305,12 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver, TouchGesturesObse
 
         mediaSession = initMediaSession()
         updateMediaSession()
-        BackgroundPlaybackService.mediaToken = mediaSession?.sessionToken
+        with (BackgroundPlaybackService) {
+            mediaToken = mediaSession?.sessionToken
+            thumbnailChanged = {
+                updateMediaSession()
+            }
+        }
 
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val audioSessionId = audioManager!!.generateAudioSessionId()
@@ -343,7 +348,10 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver, TouchGesturesObse
             becomingNoisyReceiverRegistered = false
         }
 
-        BackgroundPlaybackService.mediaToken = null
+        with (BackgroundPlaybackService) {
+            mediaToken = null
+            thumbnailChanged = null
+        }
         mediaSession?.let {
             it.isActive = false
             it.release()
@@ -442,10 +450,9 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver, TouchGesturesObse
     }
 
     private fun onPauseImpl() {
-        val fmt = MPVLib.getPropertyString("video-format")
         val shouldBackground = shouldBackground()
-        if (shouldBackground && !fmt.isNullOrEmpty())
-            BackgroundPlaybackService.thumbnail = MPVLib.grabThumbnail(THUMB_SIZE)
+        if (shouldBackground)
+            BackgroundPlaybackService.grabThumbnail()
         else
             BackgroundPlaybackService.thumbnail = null
         // media session uses the same thumbnail
@@ -2115,8 +2122,6 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver, TouchGesturesObse
         private const val CONTROLS_DISPLAY_TIMEOUT = 1500L
         // how long controls fade to disappear (ms)
         private const val CONTROLS_FADE_DURATION = 500L
-        // resolution (px) of the thumbnail displayed with playback notification
-        private const val THUMB_SIZE = 384
         // smallest aspect ratio that is considered non-square
         private const val ASPECT_RATIO_MIN = 1.2f // covers 5:4 and up
         // fraction to which audio volume is ducked on loss of audio focus
