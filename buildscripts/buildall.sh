@@ -42,7 +42,7 @@ loadarch () {
 	unset CFLAGS CXXFLAGS CPPFLAGS LDFLAGS
 	unset PKG_CONFIG_PATH
 
-	local apilvl=21
+	local apilvl=23
 	# ndk_triple: the target triple
 	local cc_triple # how the compilers are actually prefixed
 	if [[ "$1" == "armv7l" ]]; then
