@@ -74,15 +74,19 @@ class BackgroundPlaybackService : Service(), MPVLib.EventObserver {
             setOngoing(true)
         }
 
-        thumbnail?.let {
-            builder.setLargeIcon(it)
+        // With an active media session, the media style will override everything
+        // (including the thumbnail) and we can skip doing this.
+        if (mediaToken != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            thumbnail?.let {
+                builder.setLargeIcon(it)
 
-            builder.setColorized(true)
-            // scale thumbnail to a single color in two steps
-            val b1 = Bitmap.createScaledBitmap(it, 16, 16, true)
-            val b2 = Bitmap.createScaledBitmap(b1, 1, 1, true)
-            builder.setColor(b2.getPixel(0, 0))
-            b2.recycle(); b1.recycle()
+                builder.setColorized(true)
+                // scale thumbnail to a single color in two steps
+                val b1 = Bitmap.createScaledBitmap(it, 16, 16, true)
+                val b2 = Bitmap.createScaledBitmap(b1, 1, 1, true)
+                builder.setColor(b2.getPixel(0, 0))
+                b2.recycle(); b1.recycle()
+            }
         }
 
         val playPauseAction = if (paused)
