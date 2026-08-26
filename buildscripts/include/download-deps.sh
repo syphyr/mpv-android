@@ -9,12 +9,13 @@ mkdir -p deps && cd deps
 
 # openssl
 if [ ! -d openssl ]; then
-	mkdir openssl
-	if [ ! -f openssl-$v_openssl.tar.gz ]; then
-		$WGET -q --show-progress https://github.com/openssl/openssl/releases/download/openssl-$v_openssl/openssl-$v_openssl.tar.gz
-	fi
-	echo "Extracting openssl-$v_openssl.tar.gz"
-	tar -xz -C openssl --strip-components=1 -f openssl-$v_openssl.tar.gz
+	git clone --recurse-submodules https://github.com/openssl/openssl.git openssl -b openssl-$v_openssl
+else
+	cd openssl
+	git fetch
+	git checkout openssl-$v_openssl
+	git submodule update --init --recursive --rebase
+	cd ..
 fi
 
 # dav1d
