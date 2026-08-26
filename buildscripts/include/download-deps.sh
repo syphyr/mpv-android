@@ -12,8 +12,10 @@ if [ ! -d openssl ]; then
 	git clone --recurse-submodules https://github.com/openssl/openssl.git openssl -b openssl-$v_openssl
 else
 	cd openssl
+	echo "Updating openssl"
 	git fetch
-	git checkout openssl-$v_openssl
+	git checkout -f openssl-$v_openssl
+	git describe --tags --always
 	git submodule update --init --recursive --rebase
 	cd ..
 fi
@@ -33,8 +35,10 @@ if [ ! -d freetype2 ]; then
 	git clone --recurse-submodules https://gitlab.freedesktop.org/freetype/freetype.git freetype2 -b VER-${v_freetype//./-}
 else
 	cd freetype2
+	echo "Updating freetype2"
 	git fetch
-	git checkout VER-${v_freetype//./-}
+	git checkout -f VER-${v_freetype//./-}
+	git describe --tags --always
 	git submodule update --init --recursive --rebase
 	cd ..
 fi
